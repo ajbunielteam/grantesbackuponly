@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Post Images</title>
+</head>
+<body>
+    <h1>Test Post Images</h1>
+    
+    <h2>1. Check Database</h2>
+    <button onclick="checkDatabase()">Check Database for Images</button>
+    <div id="db-result"></div>
+    
+    <h2>2. View Image in Database</h2>
+    <button onclick="viewImage()">View Latest Image</button>
+    <div id="image-viewer"></div>
+
+    <script>
+        async function checkDatabase() {
+            try {
+                const response = await fetch('http://localhost/grantes/api/get_posts.php');
+                const data = await response.json();
+                
+                document.getElementById('db-result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+                if (data.posts && data.posts.length > 0) {
+                    console.log('Latest post images:', data.posts[0].images);
+                }
+            } catch (e) {
+                document.getElementById('db-result').innerHTML = 'Error: ' + e.message;
+            }
+        }
+        
+        async function viewImage() {
+            try {
+                const response = await fetch('http://localhost/grantes/api/get_posts.php');
+                const data = await response.json();
+                
+                if (data.posts && data.posts.length > 0) {
+                    const latestPost = data.posts[0];
+                    const viewer = document.getElementById('image-viewer');
+                    
+                    if (latestPost.images) {
+                        const images = Array.isArray(latestPost.images) ? latestPost.images : [latestPost.images];
+                        viewer.innerHTML = '<h3>Images from latest post:</h3>';
+                        images.forEach((img, index) => {
+                            viewer.innerHTML += `<p>Image ${index + 1}: <img src="${img}" style="max-width: 300px; margin: 10px;"></p>`;
+                        });
+                    } else {
+                        viewer.innerHTML = '<p>No images in latest post</p>';
+                    }
+                }
+            } catch (e) {
+                document.getElementById('image-viewer').innerHTML = 'Error: ' + e.message;
+            }
+        }
+    </script>
+</body>
+</html>
+

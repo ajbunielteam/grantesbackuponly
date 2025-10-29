@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API</title>
+</head>
+<body>
+    <h1>Testing API Connection</h1>
+    <button onclick="testLike()">Test Like</button>
+    <button onclick="testGetPosts()">Test Get Posts</button>
+    <div id="result"></div>
+
+    <script>
+        async function testLike() {
+            const resultDiv = document.getElementById('result');
+            try {
+                const response = await fetch('http://localhost/grantes/api/update_post_engagement.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        postId: 1,
+                        action: 'like'
+                    })
+                });
+                
+                const text = await response.text();
+                resultDiv.innerHTML = '<pre>' + text + '</pre>';
+                console.log('Response:', text);
+            } catch (error) {
+                resultDiv.innerHTML = 'Error: ' + error.message;
+                console.error('Error:', error);
+            }
+        }
+
+        async function testGetPosts() {
+            const resultDiv = document.getElementById('result');
+            try {
+                const response = await fetch('http://localhost/grantes/api/get_posts.php?audience=students');
+                const text = await response.text();
+                resultDiv.innerHTML = '<pre>' + text + '</pre>';
+                console.log('Response:', text);
+            } catch (error) {
+                resultDiv.innerHTML = 'Error: ' + error.message;
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Cache</title>
+</head>
+<body>
+    <h1>Cache Cleared!</h1>
+    <p>Click below to go to your application:</p>
+    <a href="index.html" target="_blank" style="display: block; margin-top: 20px; padding: 10px 20px; background: blue; color: white; text-decoration: none; border-radius: 5px;">
+        Go to GranTES Application
+    </a>
+    <script>
+        // Force reload cache
+        window.location.replace('index.html?' + new Date().getTime());
+    </script>
+</body>
+</html>
