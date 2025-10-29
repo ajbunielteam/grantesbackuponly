@@ -1,0 +1,24 @@
+FIX YOUR IMAGES - RUN THIS SQL NOW!
+
+The problem: Your images column is TEXT which can only hold 65,535 bytes.
+Your images are 65,535 bytes - they're being TRUNCATED!
+
+SOLUTION:
+1. Open http://localhost/phpmyadmin
+2. Click on grantes_db
+3. Click on SQL tab
+4. Copy and paste this ENTIRE SQL:
+
+ALTER TABLE admin_posts MODIFY COLUMN images MEDIUMTEXT;
+
+5. Click "Go"
+6. After that runs successfully, run this to clean up:
+
+DELETE FROM admin_posts WHERE LENGTH(images) = 65535;
+
+7. Click "Go" again
+8. Now refresh your GranTES page
+9. Try posting an image again
+
+Images will now work!
+

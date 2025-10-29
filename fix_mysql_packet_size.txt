@@ -1,0 +1,19 @@
+IMPORTANT: Increase MySQL Packet Size
+
+The image you're trying to upload is too large (1MB) and exceeds MySQL's max_allowed_packet limit.
+
+TO FIX THIS:
+
+1. Stop MySQL in XAMPP Control Panel
+2. Edit this file: C:\xampp\mysql\bin\my.ini
+3. Find the section [mysqld]
+4. Add or modify this line:
+   max_allowed_packet=10M
+5. Save the file
+6. Start MySQL again in XAMPP Control Panel
+7. Try uploading your photo again
+
+ALTERNATIVE: Restart MySQL with command:
+   net stop mysql
+   net start mysql
+
